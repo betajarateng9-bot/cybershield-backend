@@ -609,8 +609,8 @@ def delete_customer(
 @app.post("/accounts", response_model=UserResponse)
 def create_account(
     user: UserCreate,
-    db: Session = Depends(get_db)
-    # current_user: models.User = Depends(deps.require_admin)  # temporarily disabled to bootstrap live admin
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(deps.require_admin)
 ):
     existing = (
         db.query(models.User)
@@ -634,7 +634,7 @@ def create_account(
     db.commit()
     db.refresh(new_user)
 
-    # audit.log_action(db, current_user.id, "create_account", "user", new_user.id, f"role={new_user.role}")  # temporarily disabled
+    audit.log_action(db, current_user.id, "create_account", "user", new_user.id, f"role={new_user.role}")
 
     return new_user
 
