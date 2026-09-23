@@ -46,7 +46,9 @@ class Customer(Base):
     notes = Column(Text, nullable=True)
 
     status = Column(String(30), default="active")  # active / inactive
+
     created_at = Column(DateTime, default=datetime.utcnow)
+    
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
 class User(Base):
